@@ -23,11 +23,11 @@ jobs:
       - name: Claude Code Review
         uses: anthropics/claude-code-action@beta
         with:
-          # GitHub token with appropriate permissions
+          # GitHub token
           github_token: ${{ secrets.GITHUB_TOKEN }}
           
-          # Required: Anthropic API key
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Claude Pro用户OAuth Token认证
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           
           direct_prompt: |
             请用中文审查这个 Pull Request，重点关注以下方面：
