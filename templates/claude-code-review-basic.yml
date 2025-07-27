@@ -1,0 +1,51 @@
+# Claude Code Review - 基础模板
+# 适用于大多数项目的标准配置
+
+name: Claude Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+jobs:
+  claude-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+      id-token: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Claude Code Review
+        uses: anthropics/claude-code-action@beta
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          
+          direct_prompt: |
+            请用中文审查这个 Pull Request，重点关注以下方面：
+            
+            1. **安全漏洞检测**：
+               - SQL注入、命令注入、XSS等安全问题
+               - 硬编码的密钥、密码等敏感信息
+               - 不安全的反序列化、路径遍历等
+            
+            2. **潜在Bug识别**：
+               - 空指针异常、数组越界
+               - 除零错误、类型转换问题
+               - 资源泄漏、内存泄漏
+               - 异步操作的错误处理
+            
+            3. **代码质量问题**：
+               - 性能瓶颈
+               - 代码重复
+               - 不当的错误处理
+            
+            请提供具体的修复建议，并按严重程度分级（🔴严重/🟡中等/🟢轻微）。只报告你确实发现的问题，不要提及没有问题的代码。
