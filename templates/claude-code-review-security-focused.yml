@@ -1,0 +1,81 @@
+# Claude Code Review - 安全专注模板
+# 专门用于高安全要求的项目
+
+name: Security-Focused Claude Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - '**/*.js'
+      - '**/*.ts'
+      - '**/*.py'
+      - '**/*.java'
+      - '**/*.go'
+      - '**/*.rs'
+      - '**/*.php'
+      - '**/*.c'
+      - '**/*.cpp'
+      - '**/*.cs'
+
+jobs:
+  security-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+      id-token: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Security-Focused Claude Review
+        uses: anthropics/claude-code-action@beta
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          
+          direct_prompt: |
+            🔒 **安全审查模式** - 请用中文进行严格的安全代码审查：
+            
+            ## 🔴 严重安全漏洞检测
+            - **注入攻击**：SQL注入、NoSQL注入、命令注入、LDAP注入
+            - **跨站脚本**：XSS (存储型、反射型、DOM型)
+            - **认证绕过**：弱认证、会话管理缺陷
+            - **授权缺陷**：权限提升、水平/垂直权限绕过
+            - **数据暴露**：敏感信息泄露、日志敏感数据
+            - **加密缺陷**：弱加密、硬编码密钥、不安全随机数
+            - **反序列化**：不安全的对象反序列化
+            - **文件操作**：路径遍历、文件上传漏洞
+            - **CSRF/SSRF**：跨站请求伪造、服务端请求伪造
+            
+            ## 🟡 中等安全问题
+            - **输入验证**：不充分的输入验证和过滤
+            - **错误处理**：敏感信息在错误消息中泄露
+            - **日志安全**：日志注入、敏感数据记录
+            - **配置安全**：不安全的默认配置
+            - **依赖安全**：已知漏洞的第三方库
+            
+            ## 🟢 安全最佳实践
+            - **防御编程**：边界检查、异常处理
+            - **安全headers**：CSP、HSTS等安全头缺失
+            - **资源管理**：内存泄漏、文件句柄泄漏
+            
+            **要求**：
+            1. 每个问题必须包含具体的代码位置 (文件:行号)
+            2. 详细说明攻击向量和潜在影响
+            3. 提供具体的修复代码示例
+            4. 按严重程度排序 (🔴→🟡→🟢)
+            5. 如果发现严重漏洞，请在开头用 ⚠️ **严重安全警告** 标注
+            
+          custom_instructions: |
+            安全审查重点：
+            - 零容忍严重安全漏洞
+            - 深度分析攻击面
+            - 提供防护建议
+            - 关注最新安全威胁
+            - 遵循OWASP Top 10标准

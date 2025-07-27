@@ -1,0 +1,78 @@
+# Claude Code Review - 性能优化模板
+# 专注于性能分析和优化建议
+
+name: Performance-Focused Claude Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+jobs:
+  performance-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+      id-token: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Performance-Focused Claude Review
+        uses: anthropics/claude-code-action@beta
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          
+          direct_prompt: |
+            🚀 **性能优化审查** - 请用中文专注于性能相关的代码审查：
+            
+            ## 🔴 严重性能问题
+            - **算法复杂度**：O(n²)及以上的不必要复杂度
+            - **内存泄漏**：未释放的资源、闭包内存泄漏
+            - **阻塞操作**：同步IO、长时间计算阻塞主线程
+            - **无限循环**：可能导致死循环的逻辑
+            - **资源未释放**：文件句柄、数据库连接、网络连接
+            
+            ## 🟡 中等性能问题
+            - **重复计算**：可缓存但未缓存的计算
+            - **低效查询**：N+1查询、缺少索引、全表扫描
+            - **不必要的网络请求**：可合并的API调用
+            - **内存使用**：大对象创建、频繁GC触发
+            - **并发问题**：竞态条件、锁竞争
+            
+            ## 🟢 性能优化机会
+            - **缓存策略**：结果缓存、计算缓存机会
+            - **数据结构**：更高效的数据结构选择
+            - **批处理**：可批量处理的操作
+            - **懒加载**：延迟加载机会
+            - **预加载**：预取数据机会
+            - **代码分割**：减少初始加载时间
+            
+            ## 📊 性能度量关注点
+            - **时间复杂度**：分析并建议优化
+            - **空间复杂度**：内存使用分析
+            - **响应时间**：用户体验影响
+            - **吞吐量**：系统处理能力
+            - **资源利用率**：CPU、内存、IO使用
+            
+            **要求**：
+            1. 标明具体的性能问题位置 (文件:行号)
+            2. 估算性能影响程度 (高/中/低)
+            3. 提供优化后的代码示例
+            4. 说明优化带来的预期改进
+            5. 考虑优化的工程成本和收益
+            
+          custom_instructions: |
+            性能审查重点：
+            - 识别性能瓶颈
+            - 算法和数据结构优化
+            - 内存和资源管理
+            - 并发和异步优化
+            - 数据库查询优化
+            - 网络请求优化
