@@ -1,0 +1,66 @@
+name: Claude Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+jobs:
+  claude-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Claude Code Review
+        uses: anthropics/claude-code-action@v1
+        with:
+          # GitHub token with appropriate permissions
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          
+          # Optional: Anthropic API key (if not using GitHub App)
+          # anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+          
+          direct_prompt:
+            Please review the pull request and look for bugs and security issues. Only report on bugs and potential vulnerabilities you find. Be concise.
+          # Review configuration
+          review-level: "thorough"  # Options: quick, standard, thorough
+          
+          # File patterns to include/exclude
+          include-patterns: |
+            **/*.js
+            **/*.ts
+            **/*.tsx
+            **/*.jsx
+            **/*.py
+            **/*.go
+            **/*.rs
+            **/*.java
+            **/*.cpp
+            **/*.c
+            **/*.h
+            **/*.hpp
+            **/*.md
+          
+          exclude-patterns: |
+            node_modules/**
+            dist/**
+            build/**
+            **/*.min.js
+            **/*.bundle.js
+            
+          # Additional review instructions
+          custom-instructions: |
+            Please focus on:
+            - Code quality and best practices
+            - Potential bugs and security issues
+            - Performance optimizations
+            - Documentation completeness
+            - Test coverage
