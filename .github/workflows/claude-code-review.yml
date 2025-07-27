@@ -26,8 +26,8 @@ jobs:
           # GitHub token with appropriate permissions
           github_token: ${{ secrets.GITHUB_TOKEN }}
           
-          # Optional: Anthropic API key (if not using GitHub App)
-          # anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Required: Anthropic API key
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           
           direct_prompt: |
             请用中文审查这个 Pull Request，重点关注以下方面：
