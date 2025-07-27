@@ -12,6 +12,7 @@ jobs:
       contents: read
       pull-requests: write
       issues: write
+      id-token: write
 
     steps:
       - name: Checkout code
@@ -23,44 +24,36 @@ jobs:
         uses: anthropics/claude-code-action@beta
         with:
           # GitHub token with appropriate permissions
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           
           # Optional: Anthropic API key (if not using GitHub App)
-          # anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           
-          direct_prompt:
-            Please review the pull request and look for bugs and security issues. Only report on bugs and potential vulnerabilities you find. Be concise.
-          # Review configuration
-          review-level: "thorough"  # Options: quick, standard, thorough
-          
-          # File patterns to include/exclude
-          include-patterns: |
-            **/*.js
-            **/*.ts
-            **/*.tsx
-            **/*.jsx
-            **/*.py
-            **/*.go
-            **/*.rs
-            **/*.java
-            **/*.cpp
-            **/*.c
-            **/*.h
-            **/*.hpp
-            **/*.md
-          
-          exclude-patterns: |
-            node_modules/**
-            dist/**
-            build/**
-            **/*.min.js
-            **/*.bundle.js
+          direct_prompt: |
+            请用中文审查这个 Pull Request，重点关注以下方面：
             
-          # Additional review instructions
-          custom-instructions: |
-            Please focus on:
-            - Code quality and best practices
-            - Potential bugs and security issues
-            - Performance optimizations
-            - Documentation completeness
-            - Test coverage
+            1. **安全漏洞检测**：
+               - SQL注入、命令注入、XSS等安全问题
+               - 硬编码的密钥、密码等敏感信息
+               - 不安全的反序列化、路径遍历等
+            
+            2. **潜在Bug识别**：
+               - 空指针异常、数组越界
+               - 除零错误、类型转换问题
+               - 资源泄漏、内存泄漏
+               - 异步操作的错误处理
+            
+            3. **代码质量问题**：
+               - 性能瓶颈
+               - 代码重复
+               - 不当的错误处理
+            
+            请提供具体的修复建议，并按严重程度分级（🔴严重/🟡中等/🟢轻微）。只报告你确实发现的问题，不要提及没有问题的代码。
+          
+          # 自定义指令
+          custom_instructions: |
+            请专注于:
+            - 安全问题和漏洞
+            - 潜在的运行时错误
+            - 性能优化机会
+            - 最佳实践建议
