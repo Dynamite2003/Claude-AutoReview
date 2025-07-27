@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 0
 
       - name: Claude Code Review
-        uses: anthropics/claude-code-action@v1
+        uses: anthropics/claude-code-action@beta
         with:
           # GitHub token with appropriate permissions
           github-token: ${{ secrets.GITHUB_TOKEN }}
