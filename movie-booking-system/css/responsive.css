@@ -1,0 +1,808 @@
+/* Apple风格响应式设计 */
+
+/* ===== 断点定义 ===== */
+
+/* 超小设备 (Portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+    /* 容器调整 */
+    .container {
+        padding: 0 var(--spacing-4);
+    }
+    
+    /* 头部调整 */
+    .app-header {
+        height: var(--height-header);
+    }
+    
+    .app-header .container {
+        flex-direction: column;
+        gap: var(--spacing-3);
+        padding: var(--spacing-3) var(--spacing-4);
+    }
+    
+    .logo {
+        font-size: var(--font-size-title3);
+    }
+    
+    .header-nav {
+        gap: var(--spacing-2);
+    }
+    
+    .nav-btn {
+        min-height: var(--height-button-sm);
+        padding: var(--spacing-1) var(--spacing-3);
+        font-size: var(--font-size-footnote);
+    }
+    
+    /* 页面调整 */
+    .page {
+        padding: var(--spacing-5) 0;
+        min-height: calc(100vh - var(--height-header));
+    }
+    
+    .page-title {
+        font-size: var(--font-size-title2);
+        margin-bottom: var(--spacing-6);
+    }
+    
+    .section-title {
+        font-size: var(--font-size-headline);
+        margin: var(--spacing-6) 0 var(--spacing-4) 0;
+        padding-left: var(--spacing-4);
+    }
+    
+    .section-title::before {
+        width: 3px;
+        height: 18px;
+    }
+    
+    /* 电影网格 */
+    .movie-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-4);
+        margin-top: var(--spacing-5);
+        padding: 0;
+    }
+    
+    .movie-card {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .movie-poster {
+        height: 240px;
+    }
+    
+    .movie-info {
+        padding: var(--spacing-4);
+    }
+    
+    .movie-title {
+        font-size: var(--font-size-body);
+    }
+    
+    .movie-description {
+        font-size: var(--font-size-footnote);
+        -webkit-line-clamp: 2;
+    }
+    
+    /* 场次详情 */
+    .movie-info {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--spacing-4);
+        padding: var(--spacing-5);
+        margin-bottom: var(--spacing-6);
+    }
+    
+    .movie-info .movie-poster {
+        width: 100px;
+        height: 130px;
+        align-self: center;
+    }
+    
+    .movie-details .movie-title {
+        font-size: var(--font-size-title3);
+    }
+    
+    .movie-details .movie-description {
+        font-size: var(--font-size-footnote);
+        -webkit-line-clamp: 3;
+    }
+    
+    /* 场次卡片 */
+    .showtime-card {
+        padding: var(--spacing-4);
+    }
+    
+    .showtime-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-2);
+    }
+    
+    .showtime-time {
+        font-size: var(--font-size-headline);
+    }
+    
+    .showtime-hall {
+        font-size: var(--font-size-footnote);
+    }
+    
+    .showtime-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-2);
+    }
+    
+    .showtime-price {
+        font-size: var(--font-size-body);
+    }
+    
+    /* 选座页面 */
+    .booking-info {
+        flex-direction: column;
+        gap: var(--spacing-4);
+        text-align: center;
+        padding: var(--spacing-4);
+        margin-bottom: var(--spacing-5);
+    }
+    
+    .movie-name {
+        font-size: var(--font-size-body);
+    }
+    
+    .timer-info {
+        justify-content: center;
+    }
+    
+    .countdown {
+        font-size: var(--font-size-headline);
+        min-width: 70px;
+    }
+    
+    /* 座位图例 */
+    .seat-legend {
+        flex-wrap: wrap;
+        gap: var(--spacing-3);
+        padding: var(--spacing-4);
+        margin-bottom: var(--spacing-5);
+    }
+    
+    .legend-item {
+        font-size: var(--font-size-caption1);
+        gap: var(--spacing-2);
+    }
+    
+    .legend-item .seat {
+        width: 18px;
+        height: 18px;
+    }
+    
+    /* 屏幕 */
+    .screen {
+        margin: var(--spacing-6) auto var(--spacing-7);
+    }
+    
+    .screen-text {
+        font-size: var(--font-size-footnote);
+        padding: var(--spacing-3) 0;
+    }
+    
+    /* 座位地图 */
+    .seat-map {
+        padding: var(--spacing-4);
+        margin-bottom: var(--spacing-6);
+        min-width: auto;
+        overflow-x: auto;
+    }
+    
+    .seat-row {
+        gap: 3px;
+        margin-bottom: var(--spacing-2);
+    }
+    
+    .row-label {
+        width: 20px;
+        font-size: var(--font-size-caption2);
+    }
+    
+    .seat {
+        width: 24px;
+        height: 24px;
+        font-size: 9px;
+        border-radius: var(--radius-sm);
+    }
+    
+    .seat.couple {
+        width: 52px;
+        border-radius: var(--radius-md);
+    }
+    
+    .seat-gap {
+        width: var(--spacing-3);
+    }
+    
+    /* 订座摘要 */
+    .booking-summary {
+        padding: var(--spacing-5);
+    }
+    
+    .selected-seats h4 {
+        font-size: var(--font-size-body);
+        margin-bottom: var(--spacing-4);
+    }
+    
+    .seats-list {
+        min-height: 50px;
+        gap: var(--spacing-2);
+        margin-bottom: var(--spacing-5);
+    }
+    
+    .seat-tag {
+        padding: var(--spacing-1) var(--spacing-3);
+        font-size: var(--font-size-caption1);
+    }
+    
+    .price-row {
+        font-size: var(--font-size-footnote);
+    }
+    
+    .price-row.total {
+        font-size: var(--font-size-body);
+    }
+    
+    .booking-actions {
+        flex-direction: column;
+        gap: var(--spacing-3);
+    }
+    
+    /* 支付页面 */
+    .payment-container {
+        padding: 0 var(--spacing-4);
+    }
+    
+    .order-summary,
+    .payment-methods {
+        padding: var(--spacing-5);
+        margin-bottom: var(--spacing-5);
+    }
+    
+    .order-info h3 {
+        font-size: var(--font-size-headline);
+    }
+    
+    .order-info p {
+        font-size: var(--font-size-footnote);
+    }
+    
+    .amount {
+        font-size: var(--font-size-title1);
+    }
+    
+    .payment-options {
+        gap: var(--spacing-3);
+    }
+    
+    .payment-option {
+        padding: var(--spacing-4);
+        gap: var(--spacing-3);
+    }
+    
+    .payment-option span {
+        font-size: var(--font-size-footnote);
+    }
+    
+    .timer-warning {
+        padding: var(--spacing-4);
+        font-size: var(--font-size-footnote);
+        margin-bottom: var(--spacing-5);
+    }
+    
+    .payment-actions {
+        flex-direction: column;
+        gap: var(--spacing-3);
+    }
+    
+    /* 订单列表 */
+    .order-card {
+        padding: var(--spacing-5);
+    }
+    
+    .order-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-2);
+    }
+    
+    .order-id {
+        font-size: var(--font-size-footnote);
+    }
+    
+    .order-movie {
+        font-size: var(--font-size-headline);
+    }
+    
+    .order-info-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-1);
+        font-size: var(--font-size-footnote);
+    }
+    
+    .order-actions {
+        flex-wrap: wrap;
+        gap: var(--spacing-2);
+    }
+    
+    .order-actions .btn {
+        flex: 1;
+        min-width: 100px;
+        font-size: var(--font-size-caption1);
+    }
+    
+    /* 模态框 */
+    .modal {
+        width: 95%;
+        margin: var(--spacing-4);
+        border-radius: var(--radius-xl);
+    }
+    
+    .modal-header {
+        padding: var(--spacing-4) var(--spacing-5) var(--spacing-3);
+    }
+    
+    .modal-title {
+        font-size: var(--font-size-body);
+    }
+    
+    .modal-body {
+        padding: var(--spacing-4) var(--spacing-5);
+        font-size: var(--font-size-footnote);
+    }
+    
+    .modal-footer {
+        padding: var(--spacing-3) var(--spacing-5) var(--spacing-4);
+        flex-direction: column;
+        gap: var(--spacing-2);
+    }
+    
+    .modal-footer .btn {
+        width: 100%;
+    }
+    
+    /* Toast消息 */
+    .toast-container {
+        top: var(--spacing-4);
+        right: var(--spacing-4);
+        left: var(--spacing-4);
+        max-width: none;
+    }
+    
+    .toast {
+        margin-bottom: var(--spacing-2);
+        padding: var(--spacing-3) var(--spacing-4);
+        font-size: var(--font-size-footnote);
+    }
+}
+
+/* ===== 小设备 (Landscape phones, 576px and up) ===== */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .container {
+        padding: 0 var(--spacing-5);
+    }
+    
+    .movie-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-5);
+    }
+    
+    .movie-poster {
+        height: 260px;
+    }
+    
+    .seat {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .seat.couple {
+        width: 60px;
+    }
+    
+    .booking-actions,
+    .payment-actions {
+        flex-direction: row;
+    }
+}
+
+/* ===== 中等设备 (Tablets, 768px and up) ===== */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .movie-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-6);
+    }
+    
+    .movie-info {
+        flex-direction: row;
+        text-align: left;
+    }
+    
+    .movie-info .movie-poster {
+        width: 120px;
+        height: 160px;
+    }
+    
+    .booking-info {
+        flex-direction: row;
+        text-align: left;
+    }
+    
+    .seat-legend {
+        flex-wrap: nowrap;
+        gap: var(--spacing-4);
+    }
+    
+    .seat-map {
+        padding: var(--spacing-6);
+    }
+    
+    .seat {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .seat.couple {
+        width: 64px;
+    }
+}
+
+/* ===== 大型设备 (Desktops, 992px and up) ===== */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .movie-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .payment-container {
+        max-width: 700px;
+    }
+}
+
+/* ===== 超大设备 (Large desktops, 1200px and up) ===== */
+@media (min-width: 1200px) {
+    .container {
+        max-width: var(--container-2xl);
+    }
+    
+    .movie-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--spacing-8);
+    }
+    
+    .movie-poster {
+        height: 320px;
+    }
+    
+    .seat-map {
+        padding: var(--spacing-10) var(--spacing-8);
+    }
+    
+    .seat {
+        width: 36px;
+        height: 36px;
+        font-size: var(--font-size-footnote);
+    }
+    
+    .seat.couple {
+        width: 76px;
+    }
+    
+    .payment-container {
+        max-width: 800px;
+    }
+}
+
+/* ===== 横屏模式优化 ===== */
+@media (orientation: landscape) and (max-height: 600px) {
+    .app-header {
+        padding: var(--spacing-2) 0;
+        height: auto;
+        min-height: var(--height-input);
+    }
+    
+    .page {
+        padding: var(--spacing-3) 0;
+        min-height: calc(100vh - var(--height-input));
+    }
+    
+    .page-title {
+        font-size: var(--font-size-title3);
+        margin-bottom: var(--spacing-4);
+    }
+    
+    .section-title {
+        margin: var(--spacing-4) 0 var(--spacing-3) 0;
+    }
+    
+    .movie-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: var(--spacing-4);
+        margin-top: var(--spacing-4);
+    }
+    
+    .movie-poster {
+        height: 200px;
+    }
+    
+    .movie-info {
+        margin-bottom: var(--spacing-4);
+        padding: var(--spacing-4);
+    }
+    
+    .booking-info {
+        margin-bottom: var(--spacing-4);
+        padding: var(--spacing-4);
+    }
+    
+    .seat-legend {
+        margin-bottom: var(--spacing-4);
+        padding: var(--spacing-3);
+    }
+    
+    .screen {
+        margin: var(--spacing-4) auto var(--spacing-5);
+    }
+    
+    .seat-map {
+        padding: var(--spacing-4);
+        margin-bottom: var(--spacing-4);
+    }
+    
+    .booking-summary {
+        padding: var(--spacing-4);
+    }
+    
+    .order-summary,
+    .payment-methods {
+        padding: var(--spacing-4);
+        margin-bottom: var(--spacing-4);
+    }
+}
+
+/* ===== 高分辨率屏幕优化 ===== */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .movie-poster,
+    .screen-text,
+    .seat {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+    
+    /* 在高分辨率屏幕上使用更细的边框 */
+    .movie-card,
+    .showtime-card,
+    .booking-info,
+    .seat-legend,
+    .seat-map,
+    .booking-summary,
+    .order-summary,
+    .payment-methods,
+    .order-card,
+    .modal {
+        border-width: 0.5px;
+    }
+}
+
+/* ===== 触摸设备优化 ===== */
+@media (hover: none) and (pointer: coarse) {
+    /* 增加触摸目标尺寸 */
+    .nav-btn {
+        min-height: var(--height-button-md);
+        padding: var(--spacing-3) var(--spacing-5);
+    }
+    
+    .btn {
+        min-height: var(--height-button-lg);
+        padding: 0 var(--spacing-7);
+    }
+    
+    .btn-sm {
+        min-height: var(--height-button-md);
+        padding: 0 var(--spacing-5);
+    }
+    
+    .seat {
+        width: 36px;
+        height: 36px;
+        font-size: var(--font-size-footnote);
+    }
+    
+    .seat.couple {
+        width: 76px;
+    }
+    
+    .remove-seat {
+        width: 24px;
+        height: 24px;
+        font-size: 14px;
+    }
+    
+    .modal-close {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+    
+    .payment-option {
+        padding: var(--spacing-6);
+    }
+    
+    .payment-option input[type="radio"] {
+        width: 24px;
+        height: 24px;
+    }
+    
+    /* 移除悬停效果 */
+    .movie-card:hover,
+    .showtime-card:hover,
+    .order-card:hover,
+    .seat.available:hover,
+    .seat.vip.available:hover,
+    .seat.couple:hover,
+    .btn:hover,
+    .nav-btn:hover,
+    .payment-option:hover {
+        transform: none !important;
+        box-shadow: var(--shadow-card) !important;
+    }
+    
+    /* 增强活动状态反馈 */
+    .movie-card:active,
+    .showtime-card:active,
+    .btn:active,
+    .nav-btn:active {
+        transform: scale(0.98);
+        opacity: 0.8;
+    }
+    
+    .seat.available:active {
+        transform: scale(0.9);
+    }
+}
+
+/* ===== 暗色模式下的响应式调整 ===== */
+@media (prefers-color-scheme: dark) {
+    @media (max-width: 575.98px) {
+        .toast {
+            background: var(--color-material-thick);
+            backdrop-filter: var(--blur-lg);
+            -webkit-backdrop-filter: var(--blur-lg);
+        }
+        
+        .modal {
+            background: var(--color-background-primary);
+            border-color: var(--color-separator);
+        }
+    }
+}
+
+/* ===== 键盘导航优化 ===== */
+@media (hover: hover) and (pointer: fine) {
+    /* 键盘焦点样式增强 */
+    .movie-card:focus,
+    .showtime-card:focus,
+    .seat:focus,
+    .btn:focus,
+    .nav-btn:focus,
+    .payment-option:focus-within {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+    
+    /* Tab键导航顺序优化 */
+    .movie-card,
+    .showtime-card,
+    .seat.available,
+    .btn,
+    .nav-btn,
+    .payment-option input[type="radio"] {
+        -webkit-tap-highlight-color: transparent;
+        tap-highlight-color: transparent;
+    }
+}
+
+/* ===== 性能优化 ===== */
+@media (max-width: 767.98px) {
+    /* 在小屏幕上减少复杂动画 */
+    .movie-card,
+    .showtime-card,
+    .order-card {
+        transition: box-shadow var(--duration-fast) var(--ease-apple-out);
+    }
+    
+    .movie-card:hover,
+    .showtime-card:hover,
+    .order-card:hover {
+        transform: none;
+    }
+    
+    /* 减少模糊效果 */
+    .app-header {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: var(--color-background-primary);
+    }
+    
+    .toast {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: var(--color-background-primary);
+    }
+    
+    .loading-overlay,
+    .modal-overlay {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+}
+
+/* ===== 打印样式优化 ===== */
+@media print {
+    .app-header,
+    .nav-btn,
+    .booking-actions,
+    .payment-actions,
+    .order-actions,
+    .loading-overlay,
+    .toast-container,
+    .modal-overlay {
+        display: none !important;
+    }
+    
+    .page:not(.hidden) ~ .page {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+        font-size: 12pt;
+        line-height: 1.4;
+    }
+    
+    .container {
+        max-width: 100% !important;
+        padding: 0 !important;
+    }
+    
+    .page {
+        padding: 0 !important;
+        break-inside: avoid;
+    }
+    
+    .movie-card,
+    .showtime-card,
+    .order-card {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+        break-inside: avoid;
+        margin-bottom: 1rem;
+    }
+    
+    .seat-map,
+    .booking-summary,
+    .order-summary {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+    }
+    
+    .page-title {
+        font-size: 18pt;
+        margin-bottom: 1rem;
+    }
+    
+    .section-title {
+        font-size: 14pt;
+        margin: 1rem 0 0.5rem 0;
+    }
+}

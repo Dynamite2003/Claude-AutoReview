@@ -1,0 +1,641 @@
+/* Apple风格动画库 */
+
+/* ===== 基础动画类 ===== */
+
+.animate-fade-in {
+    animation: fadeIn var(--duration-normal) var(--ease-apple-out) forwards;
+}
+
+.animate-fade-out {
+    animation: fadeOut var(--duration-normal) var(--ease-apple-out) forwards;
+}
+
+.animate-slide-up {
+    animation: slideUp var(--duration-normal) var(--ease-spring-gentle) forwards;
+}
+
+.animate-slide-down {
+    animation: slideDown var(--duration-normal) var(--ease-spring-gentle) forwards;
+}
+
+.animate-slide-left {
+    animation: slideLeft var(--duration-normal) var(--ease-spring-gentle) forwards;
+}
+
+.animate-slide-right {
+    animation: slideRight var(--duration-normal) var(--ease-spring-gentle) forwards;
+}
+
+.animate-scale-in {
+    animation: scaleIn var(--duration-normal) var(--ease-spring-gentle) forwards;
+}
+
+.animate-scale-out {
+    animation: scaleOut var(--duration-normal) var(--ease-spring-gentle) forwards;
+}
+
+.animate-bounce {
+    animation: bounce var(--duration-slow) var(--ease-spring-bouncy) forwards;
+}
+
+.animate-pulse {
+    animation: pulse 2s var(--ease-in-out) infinite;
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+.animate-shake {
+    animation: shake var(--duration-slow) var(--ease-spring-bouncy) forwards;
+}
+
+/* ===== 关键帧定义 ===== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(var(--spacing-6));
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(calc(-1 * var(--spacing-6)));
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideLeft {
+    from {
+        opacity: 0;
+        transform: translateX(var(--spacing-6));
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideRight {
+    from {
+        opacity: 0;
+        transform: translateX(calc(-1 * var(--spacing-6)));
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes scaleOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 53%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40%, 43% {
+        transform: translateY(-8px);
+    }
+    70% {
+        transform: translateY(-4px);
+    }
+    90% {
+        transform: translateY(-2px);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-4px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(4px);
+    }
+}
+
+/* ===== 特殊效果动画 ===== */
+
+/* 心跳动画 */
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    14% {
+        transform: scale(1.05);
+    }
+    28% {
+        transform: scale(1);
+    }
+    42% {
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(1);
+    }
+}
+
+.animate-heartbeat {
+    animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+/* 浮动动画 */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* 呼吸光效 */
+@keyframes breathe {
+    0%, 100% {
+        box-shadow: 0 0 0 0 var(--color-primary);
+    }
+    50% {
+        box-shadow: 0 0 0 10px transparent;
+    }
+}
+
+.animate-breathe {
+    animation: breathe 2s ease-in-out infinite;
+}
+
+/* 打字机效果 */
+@keyframes typewriter {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+.animate-typewriter {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typewriter 2s steps(40, end) forwards;
+}
+
+/* 波纹效果 */
+@keyframes ripple {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+.animate-ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.animate-ripple::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    animation: ripple 0.6s linear;
+}
+
+/* ===== 页面转场动画 ===== */
+
+/* 淡入淡出转场 */
+.page-transition-fade-enter {
+    opacity: 0;
+    animation: fadeIn var(--duration-normal) var(--ease-apple-out) forwards;
+}
+
+.page-transition-fade-exit {
+    opacity: 1;
+    animation: fadeOut var(--duration-normal) var(--ease-apple-out) forwards;
+}
+
+/* 滑动转场 */
+.page-transition-slide-enter {
+    transform: translateX(100%);
+    animation: slideInFromRight var(--duration-normal) var(--ease-spring-gentle) forwards;
+}
+
+.page-transition-slide-exit {
+    transform: translateX(0);
+    animation: slideOutToLeft var(--duration-normal) var(--ease-spring-gentle) forwards;
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutToLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+/* ===== 加载动画 ===== */
+
+/* 旋转加载器 */
+.loading-spinner-apple {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--color-fill-tertiary);
+    border-top: 2px solid var(--color-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* 脉冲加载器 */
+.loading-dots {
+    display: inline-flex;
+    gap: var(--spacing-2);
+}
+
+.loading-dots .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    animation: dotPulse 1.4s ease-in-out infinite both;
+}
+
+.loading-dots .dot:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.loading-dots .dot:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes dotPulse {
+    0%, 80%, 100% {
+        transform: scale(0.6);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* 骨架屏动画 */
+.skeleton {
+    background: linear-gradient(90deg, var(--color-fill-quaternary) 25%, var(--color-fill-tertiary) 50%, var(--color-fill-quaternary) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* ===== 悬停效果增强 ===== */
+
+.hover-lift {
+    transition: transform var(--duration-normal) var(--ease-apple-out),
+                box-shadow var(--duration-normal) var(--ease-apple-out);
+}
+
+.hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.hover-scale {
+    transition: transform var(--duration-normal) var(--ease-spring-gentle);
+}
+
+.hover-scale:hover {
+    transform: scale(1.05);
+}
+
+.hover-glow {
+    transition: box-shadow var(--duration-normal) var(--ease-apple-out);
+}
+
+.hover-glow:hover {
+    box-shadow: 0 0 20px var(--color-primary-ultra-light);
+}
+
+/* ===== 按钮动画增强 ===== */
+
+.btn-with-ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-with-ripple::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width var(--duration-slow) var(--ease-apple-out),
+                height var(--duration-slow) var(--ease-apple-out);
+}
+
+.btn-with-ripple:active::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* ===== 通知动画 ===== */
+
+.notification-enter {
+    animation: notificationSlideIn var(--duration-normal) var(--ease-spring-gentle) forwards;
+}
+
+.notification-exit {
+    animation: notificationSlideOut var(--duration-normal) var(--ease-spring-gentle) forwards;
+}
+
+@keyframes notificationSlideIn {
+    from {
+        transform: translateX(100%) scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes notificationSlideOut {
+    from {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%) scale(0.9);
+        opacity: 0;
+    }
+}
+
+/* ===== 延迟动画类 ===== */
+
+.animate-delay-100 {
+    animation-delay: 100ms;
+}
+
+.animate-delay-200 {
+    animation-delay: 200ms;
+}
+
+.animate-delay-300 {
+    animation-delay: 300ms;
+}
+
+.animate-delay-500 {
+    animation-delay: 500ms;
+}
+
+.animate-delay-700 {
+    animation-delay: 700ms;
+}
+
+.animate-delay-1000 {
+    animation-delay: 1000ms;
+}
+
+/* ===== 动画持续时间类 ===== */
+
+.animate-duration-fast {
+    animation-duration: var(--duration-fast);
+}
+
+.animate-duration-normal {
+    animation-duration: var(--duration-normal);
+}
+
+.animate-duration-slow {
+    animation-duration: var(--duration-slow);
+}
+
+.animate-duration-slower {
+    animation-duration: var(--duration-slower);
+}
+
+/* ===== 无限循环动画 ===== */
+
+.animate-infinite {
+    animation-iteration-count: infinite;
+}
+
+.animate-once {
+    animation-iteration-count: 1;
+}
+
+/* ===== 动画填充模式 ===== */
+
+.animate-fill-forwards {
+    animation-fill-mode: forwards;
+}
+
+.animate-fill-backwards {
+    animation-fill-mode: backwards;
+}
+
+.animate-fill-both {
+    animation-fill-mode: both;
+}
+
+/* ===== 动画播放状态 ===== */
+
+.animate-paused {
+    animation-play-state: paused;
+}
+
+.animate-running {
+    animation-play-state: running;
+}
+
+/* ===== 特殊用途动画 ===== */
+
+/* 数字计数动画 */
+@keyframes countUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.animate-count-up {
+    animation: countUp var(--duration-normal) var(--ease-apple-out) forwards;
+}
+
+/* 进度条动画 */
+@keyframes progressFill {
+    from {
+        width: 0%;
+    }
+    to {
+        width: var(--progress-width, 100%);
+    }
+}
+
+.animate-progress {
+    animation: progressFill var(--duration-slow) var(--ease-apple-out) forwards;
+}
+
+/* 着重强调动画 */
+@keyframes emphasis {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.animate-emphasis {
+    animation: emphasis var(--duration-normal) var(--ease-spring-gentle) forwards;
+}
+
+/* ===== 可访问性支持 ===== */
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-fade-in,
+    .animate-fade-out,
+    .animate-slide-up,
+    .animate-slide-down,
+    .animate-slide-left,
+    .animate-slide-right,
+    .animate-scale-in,
+    .animate-scale-out,
+    .animate-bounce,
+    .animate-shake,
+    .animate-heartbeat,
+    .animate-float,
+    .animate-breathe,
+    .animate-typewriter,
+    .animate-ripple,
+    .page-transition-fade-enter,
+    .page-transition-fade-exit,
+    .page-transition-slide-enter,
+    .page-transition-slide-exit,
+    .notification-enter,
+    .notification-exit,
+    .animate-count-up,
+    .animate-progress,
+    .animate-emphasis {
+        animation: none !important;
+    }
+    
+    .animate-pulse,
+    .animate-spin,
+    .loading-spinner-apple,
+    .loading-dots .dot,
+    .skeleton {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+    
+    .hover-lift:hover,
+    .hover-scale:hover {
+        transform: none !important;
+    }
+}

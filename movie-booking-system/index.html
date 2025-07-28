@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电影选座系统</title>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 头部导航 -->
+        <header class="app-header">
+            <div class="container">
+                <h1 class="logo">影院选座系统</h1>
+                <nav class="header-nav">
+                    <button class="nav-btn" id="homeBtn">首页</button>
+                    <button class="nav-btn" id="ordersBtn">我的订单</button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- 主内容区域 -->
+        <main class="main-content">
+            <!-- 电影选择页面 -->
+            <section class="page" id="moviePage">
+                <div class="container">
+                    <h2 class="page-title">正在热映</h2>
+                    <div class="movie-grid" id="movieGrid">
+                        <!-- 电影卡片将通过JavaScript动态生成 -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- 场次选择页面 -->
+            <section class="page hidden" id="showtimePage">
+                <div class="container">
+                    <div class="movie-info">
+                        <img class="movie-poster" id="selectedMoviePoster" src="" alt="">
+                        <div class="movie-details">
+                            <h2 class="movie-title" id="selectedMovieTitle"></h2>
+                            <p class="movie-description" id="selectedMovieDesc"></p>
+                            <p class="movie-duration" id="selectedMovieDuration"></p>
+                        </div>
+                    </div>
+                    <h3 class="section-title">选择场次</h3>
+                    <div class="showtime-list" id="showtimeList">
+                        <!-- 场次列表将通过JavaScript动态生成 -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- 选座页面 -->
+            <section class="page hidden" id="seatPage">
+                <div class="container">
+                    <div class="booking-info">
+                        <div class="selected-info">
+                            <span class="movie-name" id="bookingMovieName"></span>
+                            <span class="showtime-info" id="bookingShowtime"></span>
+                        </div>
+                        <div class="timer-info">
+                            <span class="timer-text">剩余时间：</span>
+                            <span class="countdown" id="countdown">15:00</span>
+                        </div>
+                    </div>
+
+                    <!-- 座位图例 -->
+                    <div class="seat-legend">
+                        <div class="legend-item">
+                            <div class="seat available"></div>
+                            <span>可选</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="seat selected"></div>
+                            <span>已选</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="seat occupied"></div>
+                            <span>已售</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="seat vip"></div>
+                            <span>VIP座位</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="seat couple"></div>
+                            <span>情侣座</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="seat maintenance"></div>
+                            <span>维护中</span>
+                        </div>
+                    </div>
+
+                    <!-- 屏幕 -->
+                    <div class="screen">
+                        <div class="screen-text">屏幕</div>
+                    </div>
+
+                    <!-- 座位区域 -->
+                    <div class="seat-map" id="seatMap">
+                        <!-- 座位将通过JavaScript动态生成 -->
+                    </div>
+
+                    <!-- 选座信息和操作 -->
+                    <div class="booking-summary">
+                        <div class="selected-seats">
+                            <h4>已选座位</h4>
+                            <div class="seats-list" id="selectedSeatsList">
+                                <span class="no-seats">请选择座位</span>
+                            </div>
+                        </div>
+                        <div class="price-info">
+                            <div class="price-row">
+                                <span>票价总计：</span>
+                                <span class="price" id="totalPrice">¥0</span>
+                            </div>
+                            <div class="price-row">
+                                <span>服务费：</span>
+                                <span class="price">¥5</span>
+                            </div>
+                            <div class="price-row total">
+                                <span>应付金额：</span>
+                                <span class="price" id="finalPrice">¥5</span>
+                            </div>
+                        </div>
+                        <div class="booking-actions">
+                            <button class="btn btn-secondary" id="backToShowtime">返回场次</button>
+                            <button class="btn btn-primary" id="confirmBooking" disabled>确认订座</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 支付页面 -->
+            <section class="page hidden" id="paymentPage">
+                <div class="container">
+                    <div class="payment-container">
+                        <h2 class="page-title">订单支付</h2>
+                        <div class="order-summary">
+                            <div class="order-info">
+                                <h3 id="paymentMovieTitle"></h3>
+                                <p id="paymentShowtime"></p>
+                                <p id="paymentSeats"></p>
+                            </div>
+                            <div class="payment-amount">
+                                <span class="amount-label">应付金额：</span>
+                                <span class="amount" id="paymentAmount"></span>
+                            </div>
+                        </div>
+
+                        <div class="payment-methods">
+                            <h4>支付方式</h4>
+                            <div class="payment-options">
+                                <label class="payment-option">
+                                    <input type="radio" name="paymentMethod" value="alipay" checked>
+                                    <span class="option-icon">💰</span>
+                                    <span>支付宝</span>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="paymentMethod" value="wechat">
+                                    <span class="option-icon">💚</span>
+                                    <span>微信支付</span>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="paymentMethod" value="card">
+                                    <span class="option-icon">💳</span>
+                                    <span>银行卡</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="timer-warning">
+                            <span>⏰ 请在 <span id="paymentCountdown">15:00</span> 内完成支付，否则订单将自动取消</span>
+                        </div>
+
+                        <div class="payment-actions">
+                            <button class="btn btn-secondary" id="cancelPayment">取消订单</button>
+                            <button class="btn btn-primary" id="confirmPayment">立即支付</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 订单管理页面 -->
+            <section class="page hidden" id="ordersPage">
+                <div class="container">
+                    <h2 class="page-title">我的订单</h2>
+                    <div class="orders-list" id="ordersList">
+                        <!-- 订单列表将通过JavaScript动态生成 -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 加载提示 -->
+        <div class="loading-overlay hidden" id="loadingOverlay">
+            <div class="loading-spinner"></div>
+            <p>处理中...</p>
+        </div>
+
+        <!-- 消息提示 -->
+        <div class="toast-container" id="toastContainer"></div>
+
+        <!-- 确认对话框 -->
+        <div class="modal-overlay hidden" id="modalOverlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="modalTitle"></h3>
+                    <button class="modal-close" id="modalClose">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-message" id="modalMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" id="modalCancel">取消</button>
+                    <button class="btn btn-primary" id="modalConfirm">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript文件 -->
+    <script src="js/utils.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/timer.js"></script>
+    <script src="js/seat-manager.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
